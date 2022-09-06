@@ -1,11 +1,12 @@
 import GridRepos from './GridRepos'
+import LanguagesNav from './LanguagesNav'
 
-const Popular = ({ repos, loading }) => {
+const Popular = ({ repos, loading, selected, onUpdateLanguage }) => {
   console.log('repos', repos)
   return (
     <div>
+      <LanguagesNav selected={selected} onUpdateLanguage={onUpdateLanguage} />
       {loading && <h1>Loading....</h1>}
-
       <ul className='repoGrid'>
         {repos?.map((repo, index) => {
           const { id, name, stargazers_count, score, owner } = repo
@@ -18,9 +19,7 @@ const Popular = ({ repos, loading }) => {
                   name={name}
                   stargazers_count={stargazers_count}
                   score={score}
-                >
-                  <p>all of this would be considred children</p>
-                </GridRepos>
+                ></GridRepos>
               </li>
             </div>
           )

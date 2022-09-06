@@ -1,9 +1,9 @@
 import './App.css'
 import { useState, useEffect } from 'react'
 import { fetchPopularRepos } from './utils/api'
-import LanguagesNav from './components/LanguagesNav'
+import { Routes, Route, Link } from 'react-router-dom'
+import Nav from './components/Nav'
 import Popular from './components/Popular'
-import Instructions from './components/Instructions'
 import Battle from './components/Battle'
 
 function App() {
@@ -15,25 +15,31 @@ function App() {
     fetchPopularRepos(selectedLanguage).then((res) => setRepos(res))
   }, [selectedLanguage])
 
-  const onUpdateLanguage = (selectedLanguage) => {
+  const onUpdateLanguage = (language) => {
     setLoading(true)
-    fetchPopularRepos(selectedLanguage).then((res) => {
+    fetchPopularRepos(language).then((res) => {
       setRepos(res)
-      setSelectedLangauge(selectedLanguage)
+      setSelectedLangauge(language)
       setLoading(false)
     })
   }
 
   return (
     <div className='App'>
-      <h1>React Github battle</h1>
-      {/* <LanguagesNav
-        selected={selectedLanguage}
-        onUpdateLanguage={onUpdateLanguage}
-      />
-      <Popular repos={repos} loading={loading} /> */}
-
-      <Battle />
+      <Routes>
+        <Route
+          path={'/'}
+          element={
+            <Popular
+              repos={repos}
+              loading={loading}
+              onUpdateLanguage={onUpdateLanguage}
+              selected={selectedLanguage}
+            />
+          }
+        />
+        <Route path={'/battle'} element={<Battle />} />
+      </Routes>
     </div>
   )
 }
