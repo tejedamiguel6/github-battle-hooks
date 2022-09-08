@@ -9,10 +9,13 @@ import Battle from './components/Battle'
 function App() {
   const [selectedLanguage, setSelectedLangauge] = useState('All')
   const [repos, setRepos] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetchPopularRepos(selectedLanguage).then((res) => setRepos(res))
+    fetchPopularRepos(selectedLanguage).then((res) => {
+      setRepos(res)
+      setLoading(false)
+    })
   }, [selectedLanguage])
 
   const onUpdateLanguage = (language) => {
