@@ -63,7 +63,14 @@ nav {
   display: flex;
 }
 
-nav li {
-  border: 1px solid red;
+nav li a {
   justify-content: space-between;
+  text-decoration: none;
+  font-size: 18px;
+  text-decoration: none;
+}
+
+nav a.active {
+  color: red;
+  font-weight: bold;
 }

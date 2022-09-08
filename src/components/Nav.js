@@ -1,14 +1,22 @@
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+
+const activeStyle = {
+  color: 'red',
+}
 
 const Nav = () => {
   return (
     <nav>
       <ul>
         <li>
-          <Link to={'/'}>Popular</Link>
+          <NavLink to='/' activeClassName={activeStyle}>
+            Popular
+          </NavLink>
         </li>
         <li>
-          <Link to={'/battle'}>Battle</Link>
+          <NavLink to='/battle' activeClassName={activeStyle}>
+            Battle
+          </NavLink>
         </li>
       </ul>
     </nav>
