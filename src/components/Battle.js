@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react'
 import Instructions from './Instructions'
 import PlayerInput from './PlayerInput'
 
-// import { getProfile } from '../utils/api'
 import PlayerPreview from './PlayerPreview'
-
+import { battle } from '../utils/api'
+import { Link } from 'react-router-dom'
+import Results from '../components/Results'
 const Battle = () => {
   const [playerOne, setPlayerOne] = useState(null)
   const [playerTwo, setPlayerTwo] = useState(null)
@@ -16,9 +17,6 @@ const Battle = () => {
 
   const handleSubmit = (id, player) => {
     id === 'playerOne' ? setPlayerOne(player) : setPlayerTwo(player)
-
-    // getProfile(player).then((data) => setPlayerData(data, 'this is poop'))
-    // getProfile('charliekwallin')
   }
 
   const handleReset = (id) => {
@@ -26,8 +24,15 @@ const Battle = () => {
     id === 'playerTwo' && setPlayerTwo(null)
   }
 
+  const handleBattle = () => {
+    battle([playerOne, playerTwo]).then((res) =>
+      console.log(res[0], res[1], 'what is this')
+    )
+  }
+
   return (
     <div>
+      <Instructions />
       <div className='PlayerInput-flex'>
         {playerOne === null ? (
           <PlayerInput
@@ -54,6 +59,18 @@ const Battle = () => {
           />
         )}
       </div>
+      {playerOne && playerTwo !== null && (
+        <div className='battle-btn' onClick={{ handleBattle }}>
+          <Link
+            to={{
+              pathname: '/battle/results',
+              search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`,
+            }}
+          >
+            Battle!!
+          </Link>
+        </div>
+      )}
     </div>
   )
 }

@@ -1,22 +1,14 @@
 import { NavLink } from 'react-router-dom'
 
-const activeStyle = {
-  color: 'red',
-}
-
 const Nav = () => {
   return (
     <nav>
       <ul>
         <li>
-          <NavLink to='/' activeClassName={activeStyle}>
-            Popular
-          </NavLink>
+          <NavLink to='/'>Popular</NavLink>
         </li>
         <li>
-          <NavLink to='/battle' activeClassName={activeStyle}>
-            Battle
-          </NavLink>
+          <NavLink to='/battle'>Battle</NavLink>
         </li>
       </ul>
     </nav>

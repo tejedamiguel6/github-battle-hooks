@@ -5,6 +5,7 @@ import { Routes, Route, Link } from 'react-router-dom'
 import Nav from './components/Nav'
 import Popular from './components/Popular'
 import Battle from './components/Battle'
+import Results from './components/Results'
 
 function App() {
   const [selectedLanguage, setSelectedLangauge] = useState('All')
@@ -43,6 +44,7 @@ function App() {
           }
         />
         <Route path={'/battle'} element={<Battle />} />
+        <Route path={'/battle/results'} element={<Results />} />
       </Routes>
     </div>
   )
