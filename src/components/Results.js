@@ -1,23 +1,39 @@
 import { useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { battle } from '../utils/api'
 
-const Results = (props) => {
+const Results = () => {
+  const [searchParams] = useSearchParams()
+  const players = Object.fromEntries([...searchParams])
+
+  const { playerOne, playerTwo } = players
+
   const [winner, setWinner] = useState(null)
   const [loser, setLoser] = useState(null)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  console.log(props, 'lol')
 
-  useEffect(() => {}, [])
+  useEffect(() => {
+    battle([playerOne, playerTwo])
+      .then((res) => ({
+        winner: setWinner(res[0]),
+        loser: setLoser(res[1]),
+        error: setError(null),
+        loading: setLoading(false),
+      }))
+      .catch((error) => ({
+        error: setError(error),
+        loading: setLoading(false),
+      }))
+  }, [playerOne, playerTwo])
 
-  const handleBattle = () => {
-    // battle([playerOne, playerTwo]).then((res) =>
-    //   console.log(res[0], res[1], 'what is this')
-    // )
-  }
   return (
     <div>
-      <h1>REsults</h1>
+      <h1>RESULTS</h1>
+      {loading && <h1>LOADING</h1>}
+
+      <p>{JSON.stringify(winner)}</p>
+      <p>{JSON.stringify(loser)}</p>
     </div>
   )
 }
