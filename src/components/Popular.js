@@ -19,7 +19,7 @@ const Popular = ({ repos, loading, selected, onUpdateLanguage }) => {
                   name={name}
                   stargazers_count={stargazers_count}
                   score={score}
-                ></GridRepos>
+                />
               </li>
             </div>
           )
